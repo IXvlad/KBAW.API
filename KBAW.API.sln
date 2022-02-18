@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KBAW.API", "KBAW.API\KBAW.API.csproj", "{E085D7B1-E8AA-452F-90D2-48462DE1A315}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{86278492-D05B-484E-B256-C9FF9E9005BD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KBAW.DataAccess", "KBAW.DataAccess\KBAW.DataAccess.csproj", "{86278492-D05B-484E-B256-C9FF9E9005BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
