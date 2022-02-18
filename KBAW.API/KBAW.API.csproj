@@ -13,4 +13,8 @@
       <Folder Include="Controllers" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\KBAW.DataAccess\KBAW.DataAccess.csproj" />
+    </ItemGroup>
+
 </Project>
