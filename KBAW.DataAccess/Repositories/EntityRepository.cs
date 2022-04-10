@@ -1,20 +1,19 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using DomainModels.DomainsModel;
+using DataAccess.DomainModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace DomainModels.Repositories
 {
     public class EntityRepository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
     {
-        private readonly ApplicationContext _context;
+        private readonly ApplicationDbContext _dbContext;
         private readonly DbSet<TEntity> _dbSet;
 
-        public EntityRepository(ApplicationContext context)
+        public EntityRepository(ApplicationDbContext dbContext)
         {
-            _context = context;
-            _dbSet = context.Set<TEntity>();
+            _dbContext = dbContext;
+            _dbSet = dbContext.Set<TEntity>();
         }
         
         public async Task<IAsyncEnumerable<TEntity>> GetAll() => await Task.FromResult(_dbSet.AsAsyncEnumerable());
@@ -24,19 +23,19 @@ namespace DomainModels.Repositories
         public async Task Create(TEntity item)
         {
             _dbSet.Add(item);
-            await _context.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
         }
         
         public async Task Update(TEntity item)
         {
-            _context.Entry(item).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            _dbContext.Entry(item).State = EntityState.Modified;
+            await _dbContext.SaveChangesAsync();
         }
         
         public async Task Delete(TEntity item)
         {
             _dbSet.Remove(item);
-            await _context.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

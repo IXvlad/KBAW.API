@@ -1,12 +1,16 @@
 ﻿using System.Collections.Generic;
 
-namespace DomainModels.DomainsModel
+namespace DataAccess.DomainModels
 {
-    public class Ydk
+    public class Source: Entity
     {
         public virtual string Name { get; set; }
-
         
+        public virtual byte[] Image { get; set; }
+        
+        public virtual string Url { get; set; }
+
+
         public virtual ICollection<Article> Articles { get; set; } = new HashSet<Article>();
         
         public virtual ICollection<Book> Books { get; set; } = new HashSet<Book>();

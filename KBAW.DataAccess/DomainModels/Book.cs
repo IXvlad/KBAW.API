@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DomainModels.DomainsModel
+namespace DataAccess.DomainModels
 {
     public class Book : Entity
     {

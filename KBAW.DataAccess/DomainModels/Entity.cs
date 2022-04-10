@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DomainModels.DomainsModel
+namespace DataAccess.DomainModels
 {
     public class Entity : IEntity, IEquatable<Entity>
     {

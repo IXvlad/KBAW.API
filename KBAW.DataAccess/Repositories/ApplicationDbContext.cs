@@ -1,18 +1,18 @@
-﻿using DomainModels.DomainsModel;
+﻿using DataAccess.DomainModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace DomainModels.Repositories
 {
-    public class ApplicationContext : DbContext
+    public sealed class ApplicationDbContext : DbContext
     {
-        public ApplicationContext()
+        public ApplicationDbContext()
         {
             //
         }
-
-        public ApplicationContext(DbContextOptions options) : base(options)
-        {
-            //Database.EnsureCreated();
+        
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        { 
+            //
         }
 
         public DbSet<Article> Articles { get; set; }

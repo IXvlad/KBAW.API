@@ -1,4 +1,4 @@
-﻿namespace DomainModels.DomainsModel
+﻿namespace DataAccess.DomainModels
 {
     public class AuthorOfPatent : Entity
     {

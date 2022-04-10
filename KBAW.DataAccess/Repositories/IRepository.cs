@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DomainModels.DomainsModel;
+using DataAccess.DomainModels;
 
 namespace DomainModels.Repositories
 {

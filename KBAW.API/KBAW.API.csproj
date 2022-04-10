@@ -15,6 +15,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\KBAW.DataAccess\KBAW.DataAccess.csproj" />
+      <ProjectReference Include="..\KBAW.Migrations\KBAW.Migrations.csproj" />
     </ItemGroup>
 
 </Project>
