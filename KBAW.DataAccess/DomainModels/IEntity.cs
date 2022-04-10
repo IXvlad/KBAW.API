@@ -1,4 +1,4 @@
-﻿namespace DomainModels.DomainsModel
+﻿namespace DataAccess.DomainModels
 {
     public interface IEntity
     {
