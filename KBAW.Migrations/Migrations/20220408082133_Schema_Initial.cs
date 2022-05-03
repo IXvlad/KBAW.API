@@ -69,7 +69,7 @@ namespace DomainModels.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "YdKs",
+                name: "Ydks",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
