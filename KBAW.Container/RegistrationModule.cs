@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Autofac;
@@ -13,7 +14,7 @@ namespace KBAW.Container
         protected override void Load(ContainerBuilder builder)
         {
             Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies()
-                .Where(ass => ass.FullName != null && ass.FullName.StartsWith("TestAutofac"))
+                .Where(ass => ass.FullName != null && ass.FullName.StartsWith("KBAW"))
                 .ToArray();
             
             builder.RegisterAssemblyTypes<IScoped>(assemblies, setLifeTime => setLifeTime.InstancePerLifetimeScope());
@@ -32,6 +33,24 @@ namespace KBAW.Container
                 .AsImplementedInterfaces()
                 .AsSelf()
                 .Apply(setLifeTime);
+            
+            IEnumerable<TypeInfo> types = assemblies.SelectMany(ass => ass.DefinedTypes)
+                .Where(type => !type.IsInterface && !type.IsAbstract && type.IsGenericTypeDefinition && typeof(T).GetTypeInfo().IsAssignableFrom(type));
+
+            foreach (TypeInfo genericType in types)
+            {
+                int genericArgumentsNumber = genericType.GenericTypeParameters.Length;
+
+                Type[] genericInterfaces = genericType.ImplementedInterfaces
+                    .Select(gi => gi)
+                    .Where(gi => gi.GenericTypeArguments.Length == genericArgumentsNumber)
+                    .ToArray();
+
+                builder.RegisterGeneric(genericType.AsType())
+                    .AsSelf()
+                    .As(genericInterfaces)
+                    .Apply(setLifeTime);
+            }
         }
 
         private static T Apply<T>(this T obj, Action<T> action)
