@@ -2,23 +2,34 @@
 
 namespace DataAccess.DomainModels
 {
-    public class Entity : IEntity, IEquatable<Entity>
+    public abstract class Entity : Entity<long>
     {
-        public int Id { get; set; }
+        //
+    }
 
-        public bool Equals(Entity other)
+    public abstract class Entity<TKey> : IEntity<TKey>
+    {
+        private TKey _id;
+
+        protected Entity()
         {
-            return other != null && Id == other.Id;
+            //
         }
 
-        public override bool Equals(object obj)
+        protected Entity(TKey key)
         {
-            return Equals(obj as Entity);
+            _id = key;
         }
 
-        public override int GetHashCode()
+        object IEntity.Id
         {
-            return Id.GetHashCode();
+            get => Id;
+        }
+
+        public TKey Id
+        {
+            get => _id;
+            set => _id = value;
         }
     }
 }

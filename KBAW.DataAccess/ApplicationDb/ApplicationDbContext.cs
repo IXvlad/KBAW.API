@@ -1,7 +1,7 @@
 ﻿using DataAccess.DomainModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace DomainModels.Repositories
+namespace DataAccess.ApplicationDb
 {
     public sealed class ApplicationDbContext : DbContext
     {

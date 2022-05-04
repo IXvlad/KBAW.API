@@ -1,19 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using DataAccess.DomainModels;
+using KBAW.Container.Dependencies;
 
-namespace DomainModels.Repositories
+namespace DataAccess.Repositories
 {
-    public interface IRepository<T> where T : IEntity
+    public interface IRepository<TEntity> : ITransient
+        where TEntity : class, IEntity
     {
-        Task<IAsyncEnumerable<T>> GetAll();
-        
-        Task<T> GetById(int id);
-        
-        Task Create(T item);
-        
-        Task Update(T item);
-        
-        Task Delete(T item);
+        IQueryable<TEntity> GetAll();
     }
 }
