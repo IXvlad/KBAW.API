@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KBAW.DataAccess", "KBAW.Dat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KBAW.Migrations", "KBAW.Migrations\KBAW.Migrations.csproj", "{E83077DB-1A8C-48AA-9B74-5855D60D0ABA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KBAW.Container", "KBAW.Container\KBAW.Container.csproj", "{6C4FA572-D100-4B9D-8083-1399AF5710BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{E83077DB-1A8C-48AA-9B74-5855D60D0ABA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E83077DB-1A8C-48AA-9B74-5855D60D0ABA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E83077DB-1A8C-48AA-9B74-5855D60D0ABA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C4FA572-D100-4B9D-8083-1399AF5710BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C4FA572-D100-4B9D-8083-1399AF5710BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C4FA572-D100-4B9D-8083-1399AF5710BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C4FA572-D100-4B9D-8083-1399AF5710BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
