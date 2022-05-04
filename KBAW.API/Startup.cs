@@ -1,5 +1,4 @@
 using Autofac;
-using DomainModels.Repositories;
 using KBAW.Container;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -23,8 +22,6 @@ namespace KBAW.API
         {
             services.AddControllers();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = nameof(API), Version = "v1"}); });
-            
-            services.AddTransient(typeof(IRepository<>), typeof(EntityRepository<>));
         }
 
         public void ConfigureContainer(ContainerBuilder containerBuilder)

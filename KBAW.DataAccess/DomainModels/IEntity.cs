@@ -2,6 +2,11 @@
 {
     public interface IEntity
     {
-        int Id { get; set; }
+        object Id { get; }
+    }
+
+    public interface IEntity<TKey> : IEntity
+    {
+        new TKey Id { get; set; }
     }
 }
