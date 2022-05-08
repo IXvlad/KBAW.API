@@ -1,23 +1,16 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using DataAccess.DomainModels;
-using KBAW.Container.Dependencies;
+using KBAW.DataAccess.DomainModels;
 
 namespace KBAW.Query.Interfaces
 {
-    public interface IEntityQueryService<TEntity, TKey>
-        where TEntity : IEntity<TKey>
+    public interface IEntityQueryService<TEntity>
+        where TEntity : IEntity
     {
         IQueryable<TEntity> GetAll();
 
-        TEntity GetById(TKey key);
+        TEntity GetById(long id);
 
-        Task<TEntity> GetByIdAsync(TKey key);
-    }
-
-    public interface IEntityQueryService<TEntity> : IEntityQueryService<TEntity, long>
-        where TEntity : IEntity<long>
-    {
-        //
+        Task<TEntity> GetByIdAsync(long id);
     }
 }

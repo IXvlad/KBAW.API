@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DataAccess.DomainModels
+namespace KBAW.DataAccess.DomainModels
 {
     public class Book : Entity
     {
@@ -17,13 +17,13 @@ namespace DataAccess.DomainModels
 
         public virtual DateTime Date { get; set; }
 
-        public virtual int YdkId { get; set; }
+        public virtual long YdkId { get; set; }
 
-        public virtual int RecommendedBookId { get; set; }
+        public virtual long RecommendedBookId { get; set; }
 
-        public virtual int CountryId { get; set; }
+        public virtual long CountryId { get; set; }
 
-        public virtual int SourceId { get; set; }
+        public virtual long SourceId { get; set; }
         
         
         public virtual Ydk Ydk { get; set; }

@@ -1,9 +1,10 @@
-﻿using DataAccess.DomainModels;
+﻿using KBAW.Container.Dependencies;
+using KBAW.DataAccess.DomainModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataAccess.ApplicationDb
+namespace KBAW.DataAccess.Repositories
 {
-    public sealed class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext()
         {
@@ -36,6 +37,13 @@ namespace DataAccess.ApplicationDb
         public DbSet<RecommendedBook> RecommendedBooks { get; set; }
 
         public DbSet<Source> Sources { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(
+                "Server=IXVLAD;Database=LocalKnowledgeBaseDB;Trusted_Connection=True;",
+                ssdcob => ssdcob.MigrationsAssembly("KBAW.Migrations"));
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,5 +1,5 @@
-﻿using DataAccess.DomainModels;
-using KBAW.Container.Dependencies;
+﻿using KBAW.Container.Dependencies;
+using KBAW.DataAccess.DomainModels;
 using KBAW.Query.Interfaces;
 
 namespace KBAW.Query

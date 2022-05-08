@@ -1,10 +1,10 @@
-﻿namespace DataAccess.DomainModels
+﻿namespace KBAW.DataAccess.DomainModels
 {
     public class AuthorOfPatent : Entity
     {
-        public virtual int PatentId { get; set; }
+        public virtual long PatentId { get; set; }
         
-        public virtual int AuthorId { get; set; }
+        public virtual long AuthorId { get; set; }
         
         
         public virtual Patent Patent { get; set; }
