@@ -1,7 +1,7 @@
-﻿using DataAccess.DomainModels;
-using KBAW.Container.Dependencies;
+﻿using KBAW.Container.Dependencies;
+using KBAW.DataAccess.DomainModels;
 
-namespace DataAccess.Repositories
+namespace KBAW.DataAccess.Repositories
 {
     public interface ICommandRepository<TEntity> : ITransient
         where TEntity : class, IEntity

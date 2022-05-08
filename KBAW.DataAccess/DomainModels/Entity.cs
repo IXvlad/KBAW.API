@@ -1,35 +1,24 @@
 ﻿using System;
 
-namespace DataAccess.DomainModels
+namespace KBAW.DataAccess.DomainModels
 {
-    public abstract class Entity : Entity<long>
+    public class Entity : IEntity, IEquatable<Entity>
     {
-        //
-    }
+        public long Id { get; set; }
 
-    public abstract class Entity<TKey> : IEntity<TKey>
-    {
-        private TKey _id;
-
-        protected Entity()
+        public bool Equals(Entity other)
         {
-            //
+            return other != null && Id == other.Id;
         }
 
-        protected Entity(TKey key)
+        public override bool Equals(object obj)
         {
-            _id = key;
+            return Equals(obj as Entity);
         }
 
-        object IEntity.Id
+        public override int GetHashCode()
         {
-            get => Id;
-        }
-
-        public TKey Id
-        {
-            get => _id;
-            set => _id = value;
+            return Id.GetHashCode();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DataAccess.DomainModels
+namespace KBAW.DataAccess.DomainModels
 {
     public class Source: Entity
     {

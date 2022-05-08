@@ -1,13 +1,11 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using DataAccess.ApplicationDb;
-using DataAccess.DomainModels;
+using KBAW.DataAccess.DomainModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataAccess.Repositories
+namespace KBAW.DataAccess.Repositories
 {
-    public class QueryRepository<TEntity, TKey> : IQueryRepository<TEntity, TKey>
-        where TEntity : class, IEntity<TKey>
+    public class QueryRepository<TEntity> : IQueryRepository<TEntity> where TEntity : class, IEntity
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly DbSet<TEntity> _dbSet;
@@ -23,14 +21,14 @@ namespace DataAccess.Repositories
             return _dbContext.Set<TEntity>();
         }
         
-        public TEntity GetById(TKey key)
+        public TEntity GetById(long id)
         {
-           return _dbSet.Find(key);
+            return _dbSet.Find(id);
         }
 
-        public async Task<TEntity> GetByIdAsync(TKey key)
+        public async Task<TEntity> GetByIdAsync(long id)
         {
-            return await _dbSet.FindAsync(key);
+            return await _dbSet.FindAsync(id);
         }
     }
 }

@@ -1,17 +1,17 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using DataAccess.DomainModels;
-using DataAccess.Repositories;
+using KBAW.DataAccess.DomainModels;
+using KBAW.DataAccess.Repositories;
 using KBAW.Query.Interfaces;
 
 namespace KBAW.Query
 {
-    public abstract class EntityQueryService<TEntity, TKey> : IEntityQueryService<TEntity, TKey>
-        where TEntity : class, IEntity<TKey>
+    public abstract class EntityQueryService<TEntity> : IEntityQueryService<TEntity>
+        where TEntity : class, IEntity
     {
-        private readonly IQueryRepository<TEntity, TKey> _queryRepository;
+        private readonly IQueryRepository<TEntity> _queryRepository;
 
-        protected EntityQueryService(IQueryRepository<TEntity, TKey> queryRepository)
+        protected EntityQueryService(IQueryRepository<TEntity> queryRepository)
         {
             _queryRepository = queryRepository;
         }
@@ -21,24 +21,14 @@ namespace KBAW.Query
             return _queryRepository.GetAll();
         }
 
-        public TEntity GetById(TKey key)
+        public TEntity GetById(long id)
         {
-            return _queryRepository.GetById(key);
+            return _queryRepository.GetById(id);
         }
 
-        public async Task<TEntity> GetByIdAsync(TKey key)
+        public async Task<TEntity> GetByIdAsync(long id)
         {
-            return await _queryRepository.GetByIdAsync(key);
-        }
-    }
-
-    public abstract class EntityQueryService<TEntity> : EntityQueryService<TEntity, long>, IEntityQueryService<TEntity>
-        where TEntity : class, IEntity<long>
-    {
-        protected EntityQueryService(IQueryRepository<TEntity, long> queryRepository)
-            : base(queryRepository)
-        {
-            //
+            return await _queryRepository.GetByIdAsync(id);
         }
     }
 }
