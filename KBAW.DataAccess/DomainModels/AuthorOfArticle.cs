@@ -1,10 +1,10 @@
-﻿namespace DataAccess.DomainModels
+﻿namespace KBAW.DataAccess.DomainModels
 {
     public class AuthorOfArticle : Entity
     {
-        public virtual int ArticleId { get; set; }
+        public virtual long ArticleId { get; set; }
         
-        public virtual int AuthorId { get; set; }
+        public virtual long AuthorId { get; set; }
 
         
         public virtual Article Article { get; set; }

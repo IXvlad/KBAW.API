@@ -1,10 +1,7 @@
 ﻿using System;
-using KBAW.Migrations;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
-namespace DomainModels.Migrations
+namespace KBAW.Migrations.Migrations
 {
     public partial class Schema_Initial : Migration
     {
@@ -14,7 +11,7 @@ namespace DomainModels.Migrations
                 name: "Authors",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Surname = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -29,7 +26,7 @@ namespace DomainModels.Migrations
                 name: "Countries",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -42,7 +39,7 @@ namespace DomainModels.Migrations
                 name: "RecommendedBooks",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Book = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
@@ -57,7 +54,7 @@ namespace DomainModels.Migrations
                 name: "Sources",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Image = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
@@ -72,7 +69,7 @@ namespace DomainModels.Migrations
                 name: "Ydks",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -85,7 +82,7 @@ namespace DomainModels.Migrations
                 name: "Articles",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     K1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     K2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -93,10 +90,10 @@ namespace DomainModels.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    YdkId = table.Column<int>(type: "int", nullable: false),
-                    RecommendedBookId = table.Column<int>(type: "int", nullable: false),
+                    YdkId = table.Column<long>(type: "bigint", nullable: false),
+                    RecommendedBookId = table.Column<long>(type: "bigint", nullable: false),
                     PlacePublication = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceId = table.Column<int>(type: "int", nullable: false)
+                    SourceId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -122,7 +119,7 @@ namespace DomainModels.Migrations
                 name: "Books",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     K1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     K2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -130,10 +127,10 @@ namespace DomainModels.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    YdkId = table.Column<int>(type: "int", nullable: false),
-                    RecommendedBookId = table.Column<int>(type: "int", nullable: false),
-                    CountryId = table.Column<int>(type: "int", nullable: false),
-                    SourceId = table.Column<int>(type: "int", nullable: false)
+                    YdkId = table.Column<long>(type: "bigint", nullable: false),
+                    RecommendedBookId = table.Column<long>(type: "bigint", nullable: false),
+                    CountryId = table.Column<long>(type: "bigint", nullable: false),
+                    SourceId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -164,7 +161,7 @@ namespace DomainModels.Migrations
                 name: "Patents",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     K1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     K2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -172,11 +169,11 @@ namespace DomainModels.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    YdkId = table.Column<int>(type: "int", nullable: false),
-                    RecommendedBookId = table.Column<int>(type: "int", nullable: false),
-                    CountryId = table.Column<int>(type: "int", nullable: false),
-                    SourceId = table.Column<int>(type: "int", nullable: false),
-                    Number = table.Column<int>(type: "int", nullable: false),
+                    YdkId = table.Column<long>(type: "bigint", nullable: false),
+                    RecommendedBookId = table.Column<long>(type: "bigint", nullable: false),
+                    CountryId = table.Column<long>(type: "bigint", nullable: false),
+                    SourceId = table.Column<long>(type: "bigint", nullable: false),
+                    Number = table.Column<long>(type: "bigint", nullable: false),
                     Classification = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     СertificateAuthorship = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -209,10 +206,10 @@ namespace DomainModels.Migrations
                 name: "AuthorOfArticles",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ArticleId = table.Column<int>(type: "int", nullable: false),
-                    AuthorId = table.Column<int>(type: "int", nullable: false)
+                    ArticleId = table.Column<long>(type: "bigint", nullable: false),
+                    AuthorId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -233,10 +230,10 @@ namespace DomainModels.Migrations
                 name: "AuthorOfBooks",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BookId = table.Column<int>(type: "int", nullable: false),
-                    AuthorId = table.Column<int>(type: "int", nullable: false)
+                    BookId = table.Column<long>(type: "bigint", nullable: false),
+                    AuthorId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -257,10 +254,10 @@ namespace DomainModels.Migrations
                 name: "AuthorOfPatents",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PatentId = table.Column<int>(type: "int", nullable: false),
-                    AuthorId = table.Column<int>(type: "int", nullable: false)
+                    PatentId = table.Column<long>(type: "bigint", nullable: false),
+                    AuthorId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -362,7 +359,7 @@ namespace DomainModels.Migrations
                 table: "Patents",
                 column: "YdkId");
         }
-        
+
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

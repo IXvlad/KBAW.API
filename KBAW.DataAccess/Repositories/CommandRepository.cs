@@ -1,8 +1,7 @@
-﻿using DataAccess.ApplicationDb;
-using DataAccess.DomainModels;
+﻿using KBAW.DataAccess.DomainModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataAccess.Repositories
+namespace KBAW.DataAccess.Repositories
 {
     public class CommandRepository<TEntity> : ICommandRepository<TEntity>
         where TEntity : class, IEntity

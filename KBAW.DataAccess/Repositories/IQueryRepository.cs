@@ -1,19 +1,17 @@
-﻿using System.Threading.Tasks;
-using DataAccess.DomainModels;
+using System.Linq;
+using System.Threading.Tasks;
+using KBAW.Container.Dependencies;
+using KBAW.DataAccess.DomainModels;
 
-namespace DataAccess.Repositories
+namespace KBAW.DataAccess.Repositories
 {
-    public interface IQueryRepository<TEntity, TKey> : IRepository<TEntity>
-        where TEntity : class, IEntity<TKey>
+    public interface IQueryRepository<TEntity> : ITransient
+        where TEntity : class, IEntity
     {
-        TEntity GetById(TKey key);
+        IQueryable<TEntity> GetAll();
+            
+        TEntity GetById(long id);
 
-        Task<TEntity> GetByIdAsync(TKey key);
-    }
-
-    public interface IQueryRepository<TEntity> : IQueryRepository<TEntity, long>
-        where TEntity : class, IEntity<long>
-    {
-        //
+        Task<TEntity> GetByIdAsync(long id);
     }
 }
