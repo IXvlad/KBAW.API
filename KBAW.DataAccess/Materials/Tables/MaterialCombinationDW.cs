@@ -1,13 +1,12 @@
 ﻿namespace KBAW.DataAccess.Materials.Tables
 {
-    public class MaterialCombinationDW
+    public static class MaterialCombinationDW
     {
         // 1 - Quality connection
         // 2 - Poor quality connections
         // 3 - Not data or not explored
 
-        private int[,] _table = new int[,]
-        {
+        private static readonly int[,] Table = {
             {
                 -1, (int)Materials.Al, (int)Materials.AlAlloys, (int)Materials.Bronze, (int)Materials.BronzeAlloys, (int)Materials.Cu, (int)Materials.CuAlloys,
                 (int)Materials.Co, (int)Materials.CoAlloys, (int)Materials.Fe, (int)Materials.FeAlloys,
@@ -41,5 +40,10 @@
             { (int)Materials.ZrAlloys,     3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1 },
             { (int)Materials.Ceramics,     3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3 },
         };
+
+        public static WeldabilityCheck.WeldingResult GetWeldingResult(Materials material1, Materials material2)
+        {
+            return Table.GetWeldingResult(material1, material2);
+        }
     }
 }
