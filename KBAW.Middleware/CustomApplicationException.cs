@@ -16,16 +16,11 @@ namespace KBAW.ErrorHandler
             Detail = detail;
         }
 
-        public CustomApplicationExceptionDetail Detail { get; init; }
+        public CustomApplicationExceptionDetail Detail { get; set; }
     }
 
     public class CustomApplicationExceptionDetail
     {
-        public CustomApplicationExceptionDetail(string message)
-        {
-            Message = message;
-        }
-
-        public string Message { get; }
+        public string? FieldName { get; set; }
     }
 }
