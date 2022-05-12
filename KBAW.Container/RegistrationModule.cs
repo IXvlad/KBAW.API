@@ -5,7 +5,6 @@ using System.Reflection;
 using Autofac;
 using Autofac.Builder;
 using KBAW.Container.Dependencies;
-using Microsoft.Extensions.Configuration;
 using Module = Autofac.Module;
 
 namespace KBAW.Container

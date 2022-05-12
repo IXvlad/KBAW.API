@@ -3,7 +3,7 @@ using KBAW.DataAccess.DomainModels;
 
 namespace KBAW.Query.Interfaces
 {
-    public interface IAuthorsQueryService : IEntityQueryService<Author>, IScoped
+    public interface IAuthorQueryService : IEntityQueryService<Author>, IScoped
     {
         //
     }

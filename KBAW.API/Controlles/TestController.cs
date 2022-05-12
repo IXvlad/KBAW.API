@@ -14,7 +14,7 @@ namespace KBAW.API.Controlles
         private readonly IAuthorOfArticleQueryService _authorOfArticleQueryService;
         private readonly IAuthorOfBookQueryService _authorOfBookQueryService;
         private readonly IAuthorOfPatentQueryService _authorOfPatentQueryService;
-        private readonly IAuthorsQueryService _authorsQueryService;
+        private readonly IAuthorQueryService _authorQueryService;
         private readonly IBookQueryService _bookQueryService;
         private readonly IPatentQueryService _patentQueryService;
         private readonly IRecommendedBookQueryService _recommendedBookQueryService;
@@ -23,7 +23,7 @@ namespace KBAW.API.Controlles
         public TestController(IArticleQueryService articleQueryService,
             IAuthorOfArticleQueryService authorOfArticleQueryService, IPatentQueryService patentQueryService,
             IAuthorOfBookQueryService authorOfBookQueryService, IAuthorOfPatentQueryService authorOfPatentQueryService,
-            IAuthorsQueryService authorsQueryService, IBookQueryService bookQueryService,
+            IAuthorQueryService authorQueryService, IBookQueryService bookQueryService,
             IRecommendedBookQueryService recommendedBookQueryService, ISourceQueryService sourceQueryService)
         {
             _articleQueryService = articleQueryService;
@@ -31,7 +31,7 @@ namespace KBAW.API.Controlles
             _patentQueryService = patentQueryService;
             _authorOfBookQueryService = authorOfBookQueryService;
             _authorOfPatentQueryService = authorOfPatentQueryService;
-            _authorsQueryService = authorsQueryService;
+            _authorQueryService = authorQueryService;
             _bookQueryService = bookQueryService;
             _recommendedBookQueryService = recommendedBookQueryService;
             _sourceQueryService = sourceQueryService;
@@ -64,7 +64,7 @@ namespace KBAW.API.Controlles
         [HttpGet("Authors")]
         public IQueryable<Author> GetAuthors()
         {
-            return _authorsQueryService.GetAll();
+            return _authorQueryService.GetAll();
         }
 
         [HttpGet("Books")]

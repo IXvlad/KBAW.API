@@ -4,9 +4,9 @@ using KBAW.Query.Interfaces;
 
 namespace KBAW.Query
 {
-    public class AuthorsQueryService : EntityQueryService<Author>, IAuthorsQueryService
+    public class AuthorQueryService : EntityQueryService<Author>, IAuthorQueryService
     {
-        public AuthorsQueryService(IQueryRepository<Author> queryRepository)
+        public AuthorQueryService(IQueryRepository<Author> queryRepository)
             : base(queryRepository)
         {
             //
