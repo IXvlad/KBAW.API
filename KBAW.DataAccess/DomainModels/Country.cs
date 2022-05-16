@@ -5,10 +5,10 @@ namespace KBAW.DataAccess.DomainModels
     public class Country : Entity
     {
         public virtual string Name { get; set; }
-        
-        
-        public virtual ICollection<Book> Books { get; set; } = new HashSet<Book>();
-        
-        public virtual ICollection<Patent> Patents { get; set; } = new HashSet<Patent>();
+
+
+        public virtual HashSet<Book> Books { get; set; } = new();
+
+        public virtual HashSet<Patent> Patents { get; set; } = new();
     }
 }

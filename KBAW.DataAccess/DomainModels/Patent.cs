@@ -40,6 +40,6 @@ namespace KBAW.DataAccess.DomainModels
         
         public virtual Country Country { get; set; }
 
-        public ICollection<AuthorOfPatent> AuthorOfPatents { get; set; } = new HashSet<AuthorOfPatent>();
+        public HashSet<AuthorOfPatent> AuthorOfPatents { get; set; } = new();
     }
 }

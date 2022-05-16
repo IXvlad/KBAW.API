@@ -34,6 +34,6 @@ namespace KBAW.DataAccess.DomainModels
 
         public virtual Country Country { get; set; }
 
-        public virtual ICollection<AuthorOfBook> AuthorOfBooks { get; set; } = new HashSet<AuthorOfBook>();
+        public virtual HashSet<AuthorOfBook> AuthorOfBooks { get; set; } = new();
     }
 }

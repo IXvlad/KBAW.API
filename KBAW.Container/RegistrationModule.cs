@@ -23,7 +23,13 @@ namespace KBAW.Container
         private static Assembly[] GetCustomAssemblies()
         {
             const string prefix = "KBAW.";
-            string[] customAssembliesName = { string.Concat(prefix, "Query"), string.Concat(prefix, "DataAccess"), string.Concat(prefix, "Container") };
+            string[] customAssembliesName =
+            {
+                string.Concat(prefix, "Query"),  
+                string.Concat(prefix, "Command"), 
+                string.Concat(prefix, "DataAccess"), 
+                string.Concat(prefix, "Container")
+            };
 
             foreach (var name in customAssembliesName)
             {
@@ -54,7 +60,7 @@ namespace KBAW.Container
 
             foreach (TypeInfo genericType in types)
             {
-                var genericArgumentsNumber = genericType.GenericTypeParameters.Length;
+                int genericArgumentsNumber = genericType.GenericTypeParameters.Length;
 
                 Type[] genericInterfaces = genericType.ImplementedInterfaces
                     .Select(gi => gi)
