@@ -11,10 +11,10 @@ namespace KBAW.DataAccess.DomainModels
         public virtual string Lastname { get; set; }
 
 
-        public virtual ICollection<AuthorOfArticle> AuthorOfArticles { get; set; } = new HashSet<AuthorOfArticle>();
+        public virtual HashSet<AuthorOfArticle> AuthorOfArticles { get; set; } = new();
 
-        public virtual ICollection<AuthorOfBook> AuthorOfBooks { get; set; } = new HashSet<AuthorOfBook>();
+        public virtual HashSet<AuthorOfBook> AuthorOfBooks { get; set; } = new();
         
-        public virtual ICollection<AuthorOfPatent> AuthorOfPatents { get; set; } = new HashSet<AuthorOfPatent>();
+        public virtual HashSet<AuthorOfPatent> AuthorOfPatents { get; set; } = new();
     }
 }

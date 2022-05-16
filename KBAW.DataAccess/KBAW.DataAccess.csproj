@@ -22,4 +22,8 @@
       <ProjectReference Include="..\KBAW.Container\KBAW.Container.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="XmlStore" />
+    </ItemGroup>
+
 </Project>

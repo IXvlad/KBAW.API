@@ -32,6 +32,6 @@ namespace KBAW.DataAccess.DomainModels
         
         public virtual RecommendedBook RecommendedBook { get; set; }
         
-        public virtual ICollection<AuthorOfArticle> AuthorOfArticles { get; set; } = new HashSet<AuthorOfArticle>();
+        public virtual HashSet<AuthorOfArticle> AuthorOfArticles { get; set; } = new();
     }
 }
