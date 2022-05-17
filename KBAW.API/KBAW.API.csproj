@@ -14,6 +14,7 @@
       <ProjectReference Include="..\KBAW.Command\KBAW.Command.csproj" />
       <ProjectReference Include="..\KBAW.Container\KBAW.Container.csproj" />
       <ProjectReference Include="..\KBAW.DataAccess\KBAW.DataAccess.csproj" />
+      <ProjectReference Include="..\KBAW.Middleware\KBAW.Middleware.csproj" />
       <ProjectReference Include="..\KBAW.Migrations\KBAW.Migrations.csproj" />
       <ProjectReference Include="..\KBAW.Query\KBAW.Query.csproj" />
     </ItemGroup>
