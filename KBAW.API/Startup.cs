@@ -1,6 +1,7 @@
 using Autofac;
 using KBAW.Container;
 using KBAW.DataAccess.Repositories;
+using KBAW.ErrorHandler;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -48,6 +49,9 @@ namespace KBAW.API
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
+
+            app.UseMiddleware<ErrorMiddleware>();
+            
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
