@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Serilog;
 
 namespace KBAW.API
 {
@@ -46,6 +47,8 @@ namespace KBAW.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", nameof(API) + "v1"));
             }
 
+            app.UseSerilogRequestLogging();
+            
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
