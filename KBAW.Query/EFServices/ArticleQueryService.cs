@@ -6,7 +6,8 @@ namespace KBAW.Query.EFServices
 {
     public class ArticleQueryService : EntityQueryService<Article>, IArticleQueryService
     {
-        public ArticleQueryService(IQueryRepository<Article> queryRepository) : base(queryRepository)
+        public ArticleQueryService(IQueryRepository<Article> queryRepository)
+            : base(queryRepository)
         {
             //
         }

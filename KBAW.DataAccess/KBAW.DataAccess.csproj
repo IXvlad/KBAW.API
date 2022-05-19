@@ -20,6 +20,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\KBAW.Container\KBAW.Container.csproj" />
+      <ProjectReference Include="..\KBAW.Middleware\KBAW.Middleware.csproj" />
     </ItemGroup>
 
     <ItemGroup>

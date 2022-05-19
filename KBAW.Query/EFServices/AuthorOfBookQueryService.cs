@@ -6,7 +6,8 @@ namespace KBAW.Query.EFServices
 {
     public class AuthorOfBookQueryService : EntityQueryService<AuthorOfBook>, IAuthorOfBookQueryService
     {
-        public AuthorOfBookQueryService(IQueryRepository<AuthorOfBook> queryRepository) : base(queryRepository)
+        public AuthorOfBookQueryService(IQueryRepository<AuthorOfBook> queryRepository)
+            : base(queryRepository)
         {
             //
         }

@@ -8,13 +8,11 @@ namespace KBAW.Query.XmlServices
     public class EntityXmlQueryService<TEntity> : IEntityXmlQueryService<TEntity>
         where TEntity : class, IEntity
     {
-        private readonly XmlQueryRepository<TEntity> _xmlQueryRepository;
+        private readonly IXmlQueryRepository<TEntity> _xmlQueryRepository;
 
-        protected EntityXmlQueryService()
+        public EntityXmlQueryService(IXmlQueryRepository<TEntity> xmlQueryRepository)
         {
-            string name = typeof(TEntity).Name;
-            
-            _xmlQueryRepository = new XmlQueryRepository<TEntity>(string.Concat(name, ".xml"));
+            _xmlQueryRepository = xmlQueryRepository;
         }
 
         public IQueryable<TEntity> GetAll()
