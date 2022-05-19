@@ -6,15 +6,13 @@ namespace KBAW.Command.XmlServices
     public class EntityXmlCommandService<TEntity> : IEntityXmlCommandService<TEntity>
         where TEntity : class, IEntity
     {
-        private readonly XmlCommandRepository<TEntity> _xmlCommandRepository;
+        private readonly IXmlCommandRepository<TEntity> _xmlCommandRepository;
 
-        protected EntityXmlCommandService()
+        public EntityXmlCommandService(IXmlCommandRepository<TEntity> xmlCommandRepository)
         {
-            string name = typeof(TEntity).Name;
-            
-            _xmlCommandRepository = new XmlCommandRepository<TEntity>(string.Concat(name, ".xml"));
+            _xmlCommandRepository = xmlCommandRepository;
         }
-        
+
         public bool Create(TEntity entity)
         {
             return _xmlCommandRepository.Create(entity);
@@ -24,7 +22,7 @@ namespace KBAW.Command.XmlServices
         {
             return _xmlCommandRepository.Update(entity);
         }
-        
+
         public bool Delete(long id)
         {
             return _xmlCommandRepository.Delete(id);

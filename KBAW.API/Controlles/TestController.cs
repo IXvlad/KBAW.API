@@ -5,6 +5,7 @@ using KBAW.DataAccess.DomainModels;
 using KBAW.Query.EFServices.Interfaces;
 using KBAW.Query.XmlServices.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace KBAW.API.Controlles
 {
@@ -12,6 +13,8 @@ namespace KBAW.API.Controlles
     [Route("[controller]")]
     public class TestController : ControllerBase
     {
+        #region EFCommandAndQuery
+        
         private readonly Lazy<IArticleQueryService> _articleQueryService;
         private readonly Lazy<IAuthorOfArticleQueryService> _authorOfArticleQueryService;
         private readonly Lazy<IAuthorOfBookQueryService> _authorOfBookQueryService;
@@ -21,10 +24,13 @@ namespace KBAW.API.Controlles
         private readonly Lazy<IPatentQueryService> _patentQueryService;
         private readonly Lazy<IRecommendedBookQueryService> _recommendedBookQueryService;
         private readonly Lazy<ISourceQueryService> _sourceQueryService;
+        
+        #endregion
 
+        #region XmlCommandAndQuery
+        
         private readonly Lazy<IYdkXmlQueryService> _ydkXmlQueryService;
-
-
+        
         private readonly Lazy<IArticleXmlCommandService> _articleXmlCommandService;
         private readonly Lazy<IAuthorOfArticleXmlCommandService> _authorOfArticleXmlCommandService;
         private readonly Lazy<IAuthorOfBookXmlCommandService> _authorOfBookXmlCommandService;
@@ -35,6 +41,10 @@ namespace KBAW.API.Controlles
         private readonly Lazy<IRecommendedBookXmlCommandService> _recommendedBookXmlCommandService;
         private readonly Lazy<ISourceXmlCommandService> _sourceXmlCommandService;
         private readonly Lazy<IYdkXmlCommandService> _ydkXmlCommandService;
+        
+        #endregion
+
+        private readonly ILogger<TestController> _log;
 
         public TestController(
             Lazy<IArticleQueryService> articleQueryService,
@@ -56,7 +66,8 @@ namespace KBAW.API.Controlles
             Lazy<IBookXmlCommandService> bookXmlCommandService, 
             Lazy<IPatentXmlCommandService> patentXmlCommandService, 
             Lazy<IRecommendedBookXmlCommandService> recommendedBookXmlCommandService, 
-            Lazy<ISourceXmlCommandService> sourceXmlCommandService)
+            Lazy<ISourceXmlCommandService> sourceXmlCommandService, 
+            ILogger<TestController> log)
         {
             _articleQueryService = articleQueryService;
             _authorOfArticleQueryService = authorOfArticleQueryService;
@@ -78,11 +89,12 @@ namespace KBAW.API.Controlles
             _patentXmlCommandService = patentXmlCommandService;
             _recommendedBookXmlCommandService = recommendedBookXmlCommandService;
             _sourceXmlCommandService = sourceXmlCommandService;
+            _log = log;
         }
 
         [HttpGet("GetYdkXml")]
         public IQueryable<Ydk> GetYdkXml()
-        {
+        { 
             return _ydkXmlQueryService.Value.GetAll();
         }
 
