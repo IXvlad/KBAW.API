@@ -5,7 +5,7 @@ using KBAW.DataAccess.DomainModels;
 using KBAW.Query.EFServices.Interfaces;
 using KBAW.Query.XmlServices.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace KBAW.API.Controlles
 {
@@ -14,7 +14,7 @@ namespace KBAW.API.Controlles
     public class TestController : ControllerBase
     {
         #region EFCommandAndQuery
-        
+
         private readonly Lazy<IArticleQueryService> _articleQueryService;
         private readonly Lazy<IAuthorOfArticleQueryService> _authorOfArticleQueryService;
         private readonly Lazy<IAuthorOfBookQueryService> _authorOfBookQueryService;
@@ -24,13 +24,23 @@ namespace KBAW.API.Controlles
         private readonly Lazy<IPatentQueryService> _patentQueryService;
         private readonly Lazy<IRecommendedBookQueryService> _recommendedBookQueryService;
         private readonly Lazy<ISourceQueryService> _sourceQueryService;
-        
+        private readonly Lazy<IYdkQueryService> _ydkQueryService;
+
         #endregion
 
         #region XmlCommandAndQuery
-        
+
+        private readonly Lazy<IArticleXmlQueryService> _articleXmlQueryService;
+        private readonly Lazy<IAuthorOfArticleXmlQueryService> _authorOfArticleXmlQueryService;
+        private readonly Lazy<IAuthorOfBookXmlQueryService> _authorOfBookXmlQueryService;
+        private readonly Lazy<IAuthorOfPatentXmlQueryService> _authorOfPatentXmlQueryService;
+        private readonly Lazy<IAuthorXmlQueryService> _authorXmlQueryService;
+        private readonly Lazy<IBookXmlQueryService> _bookXmlQueryService;
+        private readonly Lazy<IPatentXmlQueryService> _patentXmlQueryService;
+        private readonly Lazy<IRecommendedBookXmlQueryService> _recommendedBookXmlQueryService;
+        private readonly Lazy<ISourceXmlQueryService> _sourceXmlQueryService;
         private readonly Lazy<IYdkXmlQueryService> _ydkXmlQueryService;
-        
+
         private readonly Lazy<IArticleXmlCommandService> _articleXmlCommandService;
         private readonly Lazy<IAuthorOfArticleXmlCommandService> _authorOfArticleXmlCommandService;
         private readonly Lazy<IAuthorOfBookXmlCommandService> _authorOfBookXmlCommandService;
@@ -41,33 +51,40 @@ namespace KBAW.API.Controlles
         private readonly Lazy<IRecommendedBookXmlCommandService> _recommendedBookXmlCommandService;
         private readonly Lazy<ISourceXmlCommandService> _sourceXmlCommandService;
         private readonly Lazy<IYdkXmlCommandService> _ydkXmlCommandService;
-        
-        #endregion
 
-        private readonly ILogger<TestController> _log;
+        #endregion
 
         public TestController(
             Lazy<IArticleQueryService> articleQueryService,
-            Lazy<IAuthorOfArticleQueryService> authorOfArticleQueryService, 
+            Lazy<IAuthorOfArticleQueryService> authorOfArticleQueryService,
             Lazy<IPatentQueryService> patentQueryService,
-            Lazy<IAuthorOfBookQueryService> authorOfBookQueryService, 
+            Lazy<IAuthorOfBookQueryService> authorOfBookQueryService,
             Lazy<IAuthorOfPatentQueryService> authorOfPatentQueryService,
-            Lazy<IAuthorQueryService> authorQueryService, 
+            Lazy<IAuthorQueryService> authorQueryService,
             Lazy<IBookQueryService> bookQueryService,
-            Lazy<IRecommendedBookQueryService> recommendedBookQueryService, 
+            Lazy<IRecommendedBookQueryService> recommendedBookQueryService,
             Lazy<ISourceQueryService> sourceQueryService,
-            Lazy<IYdkXmlQueryService> ydkXmlQueryService, 
-            Lazy<IYdkXmlCommandService> ydkXmlCommandService, 
-            Lazy<IArticleXmlCommandService> articleXmlCommandService, 
-            Lazy<IAuthorOfBookXmlCommandService> authorOfBookXmlCommandService, 
-            Lazy<IAuthorOfArticleXmlCommandService> authorOfArticleXmlCommandService, 
-            Lazy<IAuthorOfPatentXmlCommandService> authorOfPatentXmlCommandService, 
-            Lazy<IAuthorXmlCommandService> authorXmlCommandService, 
-            Lazy<IBookXmlCommandService> bookXmlCommandService, 
-            Lazy<IPatentXmlCommandService> patentXmlCommandService, 
-            Lazy<IRecommendedBookXmlCommandService> recommendedBookXmlCommandService, 
-            Lazy<ISourceXmlCommandService> sourceXmlCommandService, 
-            ILogger<TestController> log)
+            Lazy<IYdkXmlQueryService> ydkXmlQueryService,
+            Lazy<IYdkXmlCommandService> ydkXmlCommandService,
+            Lazy<IArticleXmlCommandService> articleXmlCommandService,
+            Lazy<IAuthorOfBookXmlCommandService> authorOfBookXmlCommandService,
+            Lazy<IAuthorOfArticleXmlCommandService> authorOfArticleXmlCommandService,
+            Lazy<IAuthorOfPatentXmlCommandService> authorOfPatentXmlCommandService,
+            Lazy<IAuthorXmlCommandService> authorXmlCommandService,
+            Lazy<IBookXmlCommandService> bookXmlCommandService,
+            Lazy<IPatentXmlCommandService> patentXmlCommandService,
+            Lazy<IRecommendedBookXmlCommandService> recommendedBookXmlCommandService,
+            Lazy<ISourceXmlCommandService> sourceXmlCommandService,
+            Lazy<IArticleXmlQueryService> articleXmlQueryService,
+            Lazy<IAuthorOfArticleXmlQueryService> authorOfArticleXmlQueryService,
+            Lazy<IAuthorOfBookXmlQueryService> authorOfBookXmlQueryService,
+            Lazy<IAuthorOfPatentXmlQueryService> authorOfPatentXmlQueryService,
+            Lazy<IAuthorXmlQueryService> authorXmlQueryService,
+            Lazy<IBookXmlQueryService> bookXmlQueryService,
+            Lazy<IPatentXmlQueryService> patentXmlQueryService,
+            Lazy<IRecommendedBookXmlQueryService> recommendedBookXmlQueryService,
+            Lazy<ISourceXmlQueryService> sourceXmlQueryService, 
+            Lazy<IYdkQueryService> ydkQueryService)
         {
             _articleQueryService = articleQueryService;
             _authorOfArticleQueryService = authorOfArticleQueryService;
@@ -89,149 +106,229 @@ namespace KBAW.API.Controlles
             _patentXmlCommandService = patentXmlCommandService;
             _recommendedBookXmlCommandService = recommendedBookXmlCommandService;
             _sourceXmlCommandService = sourceXmlCommandService;
-            _log = log;
+
+            _articleXmlQueryService = articleXmlQueryService;
+            _authorOfArticleXmlQueryService = authorOfArticleXmlQueryService;
+            _authorOfBookXmlQueryService = authorOfBookXmlQueryService;
+            _authorOfPatentXmlQueryService = authorOfPatentXmlQueryService;
+            _authorXmlQueryService = authorXmlQueryService;
+            _bookXmlQueryService = bookXmlQueryService;
+            _patentXmlQueryService = patentXmlQueryService;
+            _recommendedBookXmlQueryService = recommendedBookXmlQueryService;
+            _sourceXmlQueryService = sourceXmlQueryService;
+            _ydkQueryService = ydkQueryService;
+        }
+
+        #region GetFromXml
+
+        [HttpGet("GetArticleXml")]
+        public IQueryable<Article> GetArticleXml()
+        {
+            return _articleXmlQueryService.Value.GetAll();
+        }
+
+        [HttpGet("GetAuthorOfArticleXml")]
+        public IQueryable<AuthorOfArticle> GetAuthorOfArticleXml()
+        {
+            return _authorOfArticleXmlQueryService.Value.GetAll();
+        }
+
+        [HttpGet("GetAuthorOfBookXml")]
+        public IQueryable<AuthorOfBook> GetAuthorOfBookXml()
+        {
+            return _authorOfBookXmlQueryService.Value.GetAll();
+        }
+
+        [HttpGet("GetAuthorOfPatentXml")]
+        public IQueryable<AuthorOfPatent> GetAuthorOfPatentXml()
+        {
+            return _authorOfPatentXmlQueryService.Value.GetAll();
+        }
+
+        [HttpGet("GetAuthorXml")]
+        public IQueryable<Author> GetAuthorXml()
+        {
+            return _authorXmlQueryService.Value.GetAll();
+        }
+
+        [HttpGet("GetBookXml")]
+        public IQueryable<Book> GetBookXml()
+        {
+            return _bookXmlQueryService.Value.GetAll();
+        }
+
+        [HttpGet("GetPatentXml")]
+        public IQueryable<Patent> GetPatentXml()
+        {
+            return _patentXmlQueryService.Value.GetAll();
+        }
+
+        [HttpGet("GetRecommendedBookXml")]
+        public IQueryable<RecommendedBook> GetRecommendedBookXml()
+        {
+            return _recommendedBookXmlQueryService.Value.GetAll();
+        }
+
+        [HttpGet("GetSourceBookXml")]
+        public IQueryable<Source> GetSourceBookXml()
+        {
+            return _sourceXmlQueryService.Value.GetAll();
         }
 
         [HttpGet("GetYdkXml")]
         public IQueryable<Ydk> GetYdkXml()
-        { 
+        {
             return _ydkXmlQueryService.Value.GetAll();
         }
+
+        #endregion
+
+        #region CreateXml
 
         [HttpGet("CreateArticleXml")]
         public Article CreateArticleXml()
         {
-            var article = new Article
+            var articles = _articleQueryService.Value.GetAll()
+                .ToList();
+
+            foreach (var article in articles)
             {
-                Id = 1
-            };
+                _articleXmlCommandService.Value.Create(article);
+            }
 
-            _articleXmlCommandService.Value.Create(article);
-
-            return article;
+            return articles.FirstOrDefault();
         }
-        
+
         [HttpGet("CreateAuthorOfArticleXml")]
         public AuthorOfArticle CreateAuthorOfArticleXml()
         {
-            var authorOfArticle = new AuthorOfArticle
-            {
-                Id = 1,
-            };
-            
-            _authorOfArticleXmlCommandService.Value.Create(authorOfArticle);
+            var authorOfArticles = _authorOfArticleQueryService.Value.GetAll()
+                .ToList();
 
-            return authorOfArticle;
+            foreach (var authorOfArticle in authorOfArticles)
+            {
+                _authorOfArticleXmlCommandService.Value.Create(authorOfArticle);
+            }
+
+            return authorOfArticles.FirstOrDefault();
         }
-        
+
         [HttpGet("CreateAuthorOfBookXml")]
         public AuthorOfBook CreateAuthorOfBookXml()
         {
-            var authorOfBook = new AuthorOfBook
-            {
-                Id = 1,
-            };
-            
-            _authorOfBookXmlCommandService.Value.Create(authorOfBook);
+            var authorOfBooks = _authorOfBookQueryService.Value.GetAll()
+                .ToList();
 
-            return authorOfBook;
+            foreach (var authorOfBook in authorOfBooks)
+            {
+                _authorOfBookXmlCommandService.Value.Create(authorOfBook);
+            }
+
+            return authorOfBooks.FirstOrDefault();
         }
-        
+
         [HttpGet("CreateAuthorOfPatentXml")]
         public AuthorOfPatent CreateAuthorOfPatentXml()
         {
-            var authorOfPatent = new AuthorOfPatent
-            {
-                Id = 1,
-            };
-            
-            _authorOfPatentXmlCommandService.Value.Create(authorOfPatent);
+            var authorOfPatents = _authorOfPatentQueryService.Value.GetAll()
+                .ToList();
 
-            return authorOfPatent;
+            foreach (var authorOfPatent in authorOfPatents)
+            {
+                _authorOfPatentXmlCommandService.Value.Create(authorOfPatent);
+            }
+
+            return authorOfPatents.FirstOrDefault();
         }
-        
+
         [HttpGet("CreateAuthorXml")]
         public Author CreateAuthorXml()
         {
-            var author = new Author
-            {
-                Id = 1,
-            };
-            
-            _authorXmlCommandService.Value.Create(author);
+            var authors = _authorQueryService.Value.GetAll()
+                .ToList();
 
-            return author;
+            foreach (var author in authors)
+            {
+                _authorXmlCommandService.Value.Create(author);
+            }
+
+            return authors.FirstOrDefault();
         }
-        
+
         [HttpGet("CreateBookXml")]
         public Book CreateBookXml()
         {
-            var book = new Book
-            {
-                Id = 1,
-            };
-            
-            _bookXmlCommandService.Value.Create(book);
+            var books = _bookQueryService.Value.GetAll()
+                .ToList();
 
-            return book;
+            foreach (var book in books)
+            {
+                _bookXmlCommandService.Value.Create(book);
+            }
+
+            return books.FirstOrDefault();
         }
-        
+
         [HttpGet("CreatePatentXml")]
         public Patent CreatePatentXml()
         {
-            var patent = new Patent
-            {
-                Id = 1,
-            };
-            
-            _patentXmlCommandService.Value.Create(patent);
+            var patents = _patentQueryService.Value.GetAll()
+                .ToList();
 
-            return patent;
+            foreach (var patent in patents)
+            {
+                _patentXmlCommandService.Value.Create(patent);
+            }
+
+            return patents.FirstOrDefault();
         }
-        
+
         [HttpGet("CreateRecommendedBookXml")]
         public RecommendedBook CreateRecommendedBookXml()
         {
-            var recommendedBook = new RecommendedBook
-            {
-                Id = 1,
-            };
-            
-            _recommendedBookXmlCommandService.Value.Create(recommendedBook);
+            var recommendedBooks = _recommendedBookQueryService.Value.GetAll()
+                .ToList();
 
-            return recommendedBook;
+            foreach (var recommendedBook in recommendedBooks)
+            {
+                _recommendedBookXmlCommandService.Value.Create(recommendedBook);
+            }
+
+            return recommendedBooks.FirstOrDefault();
         }
-        
+
         [HttpGet("CreateSourceXml")]
         public Source CreateSourceXml()
         {
-            var source = new Source
-            {
-                Id = 1,
-            };
-            
-            _sourceXmlCommandService.Value.Create(source);
+            var sources = _sourceQueryService.Value.GetAll()
+                .ToList();
 
-            return source;
+            foreach (var source in sources)
+            {
+                _sourceXmlCommandService.Value.Create(source);
+            }
+
+            return sources.FirstOrDefault();
         }
-        
+
         [HttpGet("CreateYdkXml")]
         public Ydk CreateYdkXml()
         {
-            var ydk = new Ydk
-            {
-                Id = 1,
-            };
-            
-            _ydkXmlCommandService.Value.Create(ydk);
+            var ydks = _ydkQueryService.Value.GetAll()
+                .ToList();
 
-            return ydk;
+            foreach (var ydk in ydks)
+            {
+                _ydkXmlCommandService.Value.Create(ydk);
+            }
+
+            return ydks.FirstOrDefault();
         }
-        
-        
-        
-        
-        
+
+        #endregion
+
+        #region GetFromEF
+
         [HttpGet("Articles")]
         public IQueryable<Article> GetArticle()
         {
@@ -285,5 +382,7 @@ namespace KBAW.API.Controlles
         {
             return _sourceQueryService.Value.GetAll();
         }
+
+        #endregion
     }
 }
