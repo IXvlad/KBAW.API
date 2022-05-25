@@ -21,6 +21,7 @@
     <ItemGroup>
       <ProjectReference Include="..\KBAW.Container\KBAW.Container.csproj" />
       <ProjectReference Include="..\KBAW.Middleware\KBAW.Middleware.csproj" />
+      <ProjectReference Include="..\KBAW.Utils\KBAW.Utils.csproj" />
     </ItemGroup>
 
 </Project>
