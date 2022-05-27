@@ -15,6 +15,8 @@ namespace KBAW.DataAccess.DomainModels
         
         public virtual string Description { get; set; }
         
+        /// TODO:
+        /// Set DateOnly
         public virtual DateTime Date { get; set; }
         
         public virtual long YdkId { get; set; }

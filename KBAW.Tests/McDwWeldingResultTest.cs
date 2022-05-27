@@ -6,11 +6,11 @@ using Xunit.Abstractions;
 
 namespace KBAW.Tests
 {
-    public class McDwWeldingResult
+    public class McDwWeldingResultTest
     {
         private readonly ITestOutputHelper _output;
 
-        public McDwWeldingResult(ITestOutputHelper output)
+        public McDwWeldingResultTest(ITestOutputHelper output)
         {
             _output = output;
         }

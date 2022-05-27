@@ -6,11 +6,11 @@ using Xunit.Abstractions;
 
 namespace KBAW.Tests
 {
-    public class WeldabilityTableWeldingResult
+    public class McIpwWeldingResultTest
     {
         private readonly ITestOutputHelper _output;
 
-        public WeldabilityTableWeldingResult(ITestOutputHelper output)
+        public McIpwWeldingResultTest(ITestOutputHelper output)
         {
             _output = output;
         }
@@ -19,34 +19,34 @@ namespace KBAW.Tests
         public void GetWeldingResult_QualityСonnection()
         {
             const WeldabilityCheck.WeldingResult expected = WeldabilityCheck.WeldingResult.QualityСonnection;
-            Assert.Equal(expected, WeldabilityTableMaterials.GetWeldingResult(Materials.Al, Materials.ZrAlloys));
+            Assert.Equal(expected, MaterialCombinationIPW.GetWeldingResult(Materials.TiAlloys, Materials.SteelStainless));
         }
         
         [Fact]
         public void GetWeldingResult_PoorQualityConnections()
         {
             const WeldabilityCheck.WeldingResult expected = WeldabilityCheck.WeldingResult.PoorQualityConnections;
-            Assert.Equal(expected, WeldabilityTableMaterials.GetWeldingResult(Materials.SteelCarbon, Materials.AlAlloys));
+            Assert.Equal(expected, MaterialCombinationIPW.GetWeldingResult(Materials.AlAlloys, Materials.CuZn));
         }
         
         [Fact]
         public void GetWeldingResult_NotData()
         {
             const WeldabilityCheck.WeldingResult expected = WeldabilityCheck.WeldingResult.NotData;
-            Assert.Equal(expected, WeldabilityTableMaterials.GetWeldingResult(Materials.Pb, Materials.Ag));
+            Assert.Equal(expected, MaterialCombinationIPW.GetWeldingResult(Materials.Bronze, Materials.CarbidesCemented));
         }
         
         [Fact]
         public void GetWeldingResult_MaterialNotFound()
         {
             var exception = Assert.Throws<CustomApplicationException>(
-                () => WeldabilityTableMaterials.GetWeldingResult(Materials.Al, Materials.Columbium)
+                () => MaterialCombinationIPW.GetWeldingResult(Materials.Al, Materials.FeSintered)
             );
 
             Assert.Equal("Material not found in table.", exception.Message);
-            Assert.Equal(exception.Detail.FieldName, Materials.Columbium.ToString());
+            Assert.Equal(exception.Detail.FieldName, Materials.Al.ToString());
             
-            _output.WriteLine($"Material not found: {Materials.Columbium.ToString()}");
+            _output.WriteLine($"Material not found: {Materials.Al.ToString()}");
         }
     }
 }
