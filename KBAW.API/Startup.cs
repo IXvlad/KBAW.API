@@ -1,4 +1,5 @@
 using Autofac;
+using KBAW.API.Infrastructure;
 using KBAW.Container;
 using KBAW.DataAccess.Repositories;
 using KBAW.ErrorHandler;
@@ -31,6 +32,8 @@ namespace KBAW.API
                     options.UseSqlServer(
                         _configuration.GetConnectionString("DefaultConnection"),
                         ssdcob => ssdcob.MigrationsAssembly("KBAW.Migrations")));
+            
+            services.AddAutoMapper(typeof(Startup), typeof(AutoMapperProfile));
         }
 
         public void ConfigureContainer(ContainerBuilder containerBuilder)
