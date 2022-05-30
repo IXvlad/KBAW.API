@@ -9,11 +9,11 @@ namespace KBAW.DataAccess.Materials
     {
         public enum WeldingResult
         {
-            [Display(Name = "Quality connection")]
+            [Display(ResourceType = typeof(Resources), Name = "wr_quality_connection_lbl")]
             QualityСonnection = 1,
-            [Display(Name = "Poor quality connections")]
+            [Display(ResourceType = typeof(Resources), Name = "wr_poor_quality_connection_lbl")]
             PoorQualityConnections,
-            [Display(Name = "Not data or not explored")]
+            [Display(ResourceType = typeof(Resources), Name = "wr_not_data_lbl")]
             NotData
         }
 
@@ -26,7 +26,7 @@ namespace KBAW.DataAccess.Materials
 
             if (row == -1 || column == -1)
             {
-                throw new CustomApplicationException("Material not found in table.", new CustomApplicationExceptionDetail
+                throw new CustomApplicationException(Resources.material_not_found_msg, new CustomApplicationExceptionDetail
                 {
                     FieldName = row == -1 ? Enum.GetName(typeof(Materials), material1) : Enum.GetName(typeof(Materials), material2)
                 });
@@ -41,7 +41,7 @@ namespace KBAW.DataAccess.Materials
             {
                 if (!Enum.IsDefined(typeof(Materials), value))
                 {
-                    throw new CustomApplicationException($"No material found with this key: {value}");
+                    throw new CustomApplicationException(string.Format(Resources.material_does_not_exist_msg, value));
                 }
             }
         }
