@@ -10,7 +10,14 @@ namespace KBAW.Utils
         {
             if (array.Rank == 1)
             {
-                return new[] { Array.IndexOf(array, element) };
+                int index = Array.IndexOf(array, element);
+
+                if (index != -1)
+                {
+                    return new[] { index };
+                }
+
+                throw new CustomApplicationException("Element not found");
             }
 
             var found = array.OfType<object>()
