@@ -32,7 +32,7 @@ namespace KBAW.DataAccess.Materials
                 });
             }
 
-            return ((WeldingResult)table[row, column]).DisplayName();
+            return ((WeldingResult)table[row, column]).GetDisplayName();
         }
 
         private static void ValuesIsDefined(params int[] values)
