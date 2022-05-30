@@ -19,21 +19,21 @@ namespace KBAW.Tests
         [Fact]
         public void GetWeldingResult_QualityСonnection()
         {
-            string result = WeldabilityCheck.WeldingResult.QualityСonnection.DisplayName();
+            string result = WeldabilityCheck.WeldingResult.QualityСonnection.GetDisplayName();
             Assert.Equal(result, MaterialCombinationIPW.GetWeldingResult((int)Materials.TiAlloys, (int)Materials.SteelStainless));
         }
 
         [Fact]
         public void GetWeldingResult_PoorQualityConnections()
         {
-            string result = WeldabilityCheck.WeldingResult.PoorQualityConnections.DisplayName();
+            string result = WeldabilityCheck.WeldingResult.PoorQualityConnections.GetDisplayName();
             Assert.Equal(result, MaterialCombinationIPW.GetWeldingResult((int)Materials.AlAlloys, (int)Materials.CuZn));
         }
 
         [Fact]
         public void GetWeldingResult_NotData()
         {
-            string result = WeldabilityCheck.WeldingResult.NotData.DisplayName();
+            string result = WeldabilityCheck.WeldingResult.NotData.GetDisplayName();
             Assert.Equal(result, MaterialCombinationIPW.GetWeldingResult((int)Materials.Bronze, (int)Materials.CarbidesCemented));
         }
 
