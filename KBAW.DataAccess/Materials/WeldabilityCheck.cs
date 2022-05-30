@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using KBAW.ErrorHandler;
 using KBAW.Utils;
 
@@ -16,20 +17,33 @@ namespace KBAW.DataAccess.Materials
             NotData
         }
 
-        public static WeldingResult GetWeldingResult(this int[,] table, Materials material1, Materials material2)
+        public static string GetWeldingResult(this int[,] table, int material1, int material2)
         {
-            int row = table.GetRow().FindIndex((int)material1)[0];
-            int column = table.GetColumn().FindIndex((int)material2)[0];
+            ValuesIsDefined(material1, material2);
+
+            int row = table.GetRow().FindIndex(material1)[0];
+            int column = table.GetColumn().FindIndex(material2)[0];
 
             if (row == -1 || column == -1)
             {
                 throw new CustomApplicationException("Material not found in table.", new CustomApplicationExceptionDetail
                 {
-                    FieldName = row == -1 ? material1.ToString() : material2.ToString()
+                    FieldName = row == -1 ? Enum.GetName(typeof(Materials), material1) : Enum.GetName(typeof(Materials), material2)
                 });
             }
-            
-            return (WeldingResult)table[row, column];
+
+            return ((WeldingResult)table[row, column]).DisplayName();
+        }
+
+        private static void ValuesIsDefined(params int[] values)
+        {
+            foreach (int value in values)
+            {
+                if (!Enum.IsDefined(typeof(Materials), value))
+                {
+                    throw new CustomApplicationException($"No material found with this key: {value}");
+                }
+            }
         }
     }
 }
