@@ -41,7 +41,7 @@
             { (int)Materials.Ceramics,     3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3 },
         };
 
-        public static WeldabilityCheck.WeldingResult GetWeldingResult(Materials material1, Materials material2)
+        public static string GetWeldingResult(int material1, int material2)
         {
             return Table.GetWeldingResult(material1, material2);
         }

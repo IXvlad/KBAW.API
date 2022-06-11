@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using KBAW.Query.EFServices.Interfaces;
 using KBAW.Query.EFServices.ViewModels;
