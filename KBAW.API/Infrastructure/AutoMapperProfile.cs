@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using AutoMapper;
-using KBAW.API.ViewModels;
 using KBAW.DataAccess.DomainModels;
+using KBAW.Query.EFServices.ViewModels;
 
 namespace KBAW.API.Infrastructure
 {
