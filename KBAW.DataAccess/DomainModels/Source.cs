@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace KBAW.DataAccess.DomainModels;
 
 public class Source : Entity
 {
+    [Required]
     public virtual string Name { get; set; }
 
+    [Required]
     public virtual byte[] Image { get; set; }
 
     public virtual string Url { get; set; }
