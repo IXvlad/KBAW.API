@@ -30,8 +30,7 @@ public class Startup
         services.AddDbContext<ApplicationDbContext>(
             options =>
                 options.UseSqlServer(
-                    _configuration.GetConnectionString("DefaultConnection"),
-                    ssdcob => ssdcob.MigrationsAssembly("KBAW.Migrations")));
+                    _configuration.GetSection("Database").GetConnectionString("Default")));
 
         services.AddAutoMapper(typeof(Startup), typeof(AutoMapperProfile));
     }
