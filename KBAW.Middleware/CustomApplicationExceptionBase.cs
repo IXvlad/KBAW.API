@@ -1,24 +1,21 @@
-﻿using System;
+﻿namespace KBAW.ErrorHandler;
 
-namespace KBAW.ErrorHandler
+public class CustomApplicationExceptionBase : ApplicationException
 {
-    public class CustomApplicationExceptionBase : ApplicationException
+    public CustomApplicationExceptionBase()
     {
-        public CustomApplicationExceptionBase()
-        {
-            //
-        }
+        //
+    }
 
-        protected CustomApplicationExceptionBase(string message)
-            : base(message)
-        {
-            //
-        }
+    protected CustomApplicationExceptionBase(string message)
+        : base(message)
+    {
+        //
+    }
 
-        protected CustomApplicationExceptionBase(string message, Exception innerException)
-            : base(message, innerException)
-        {
-            //
-        }
+    protected CustomApplicationExceptionBase(string message, Exception innerException)
+        : base(message, innerException)
+    {
+        //
     }
 }

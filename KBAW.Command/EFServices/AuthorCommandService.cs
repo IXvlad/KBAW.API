@@ -2,14 +2,13 @@
 using KBAW.DataAccess.DomainModels;
 using KBAW.DataAccess.Repositories;
 
-namespace KBAW.Command.EFServices
+namespace KBAW.Command.EFServices;
+
+public class AuthorCommandService : EntityCommandService<Author>, IAuthorCommandService
 {
-    public class AuthorCommandService : EntityCommandService<Author>, IAuthorCommandService
+    public AuthorCommandService(ICommandRepository<Author> commandRepository)
+        : base(commandRepository)
     {
-        public AuthorCommandService(ICommandRepository<Author> commandRepository)
-            : base(commandRepository)
-        {
-            //
-        }
+        //
     }
 }

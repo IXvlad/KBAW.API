@@ -2,14 +2,13 @@
 using KBAW.DataAccess.XmlRepository;
 using KBAW.Query.XmlServices.Interfaces;
 
-namespace KBAW.Query.XmlServices
+namespace KBAW.Query.XmlServices;
+
+public class PatentXmlQueryService : EntityXmlQueryService<Patent>, IPatentXmlQueryService
 {
-    public class PatentXmlQueryService : EntityXmlQueryService<Patent>, IPatentXmlQueryService
+    public PatentXmlQueryService(IXmlQueryRepository<Patent> xmlQueryRepository)
+        : base(xmlQueryRepository)
     {
-        public PatentXmlQueryService(IXmlQueryRepository<Patent> xmlQueryRepository) 
-            : base(xmlQueryRepository)
-        {
-            //
-        }
+        //
     }
 }

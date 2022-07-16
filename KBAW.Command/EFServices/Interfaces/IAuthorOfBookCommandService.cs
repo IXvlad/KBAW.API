@@ -1,10 +1,9 @@
 ﻿using KBAW.Container.Dependencies;
 using KBAW.DataAccess.DomainModels;
 
-namespace KBAW.Command.EFServices.Interfaces
+namespace KBAW.Command.EFServices.Interfaces;
+
+public interface IAuthorOfBookCommandService : IEntityCommandService<AuthorOfBook>, IScoped
 {
-    public interface IAuthorOfBookCommandService : IEntityCommandService<AuthorOfBook>, IScoped
-    {
-        //
-    }
+    //
 }

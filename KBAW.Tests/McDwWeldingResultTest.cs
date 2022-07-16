@@ -5,46 +5,45 @@ using KBAW.Utils;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace KBAW.Tests
+namespace KBAW.Tests;
+
+public class McDwWeldingResultTest
 {
-    public class McDwWeldingResultTest
+    private readonly ITestOutputHelper _output;
+
+    public McDwWeldingResultTest(ITestOutputHelper output)
     {
-        private readonly ITestOutputHelper _output;
+        _output = output;
+    }
 
-        public McDwWeldingResultTest(ITestOutputHelper output)
-        {
-            _output = output;
-        }
+    [Fact]
+    public void GetWeldingResult_QualityСonnection()
+    {
+        string result = WeldabilityCheck.WeldingResult.QualityСonnection.GetDisplayName();
+        Assert.Equal(result, MaterialCombinationDW.GetWeldingResult((int)Materials.AlAlloys, (int)Materials.Cu));
+    }
 
-        [Fact]
-        public void GetWeldingResult_QualityСonnection()
-        {
-            string result = WeldabilityCheck.WeldingResult.QualityСonnection.GetDisplayName();
-            Assert.Equal(result, MaterialCombinationDW.GetWeldingResult((int)Materials.AlAlloys, (int)Materials.Cu));
-        }
+    [Fact]
+    public void GetWeldingResult_PoorQualityConnections()
+    {
+        string result = WeldabilityCheck.WeldingResult.PoorQualityConnections.GetDisplayName();
+        Assert.Equal(result, MaterialCombinationDW.GetWeldingResult((int)Materials.Zr, (int)Materials.Zr));
+    }
 
-        [Fact]
-        public void GetWeldingResult_PoorQualityConnections()
-        {
-            string result = WeldabilityCheck.WeldingResult.PoorQualityConnections.GetDisplayName();
-            Assert.Equal(result, MaterialCombinationDW.GetWeldingResult((int)Materials.Zr, (int)Materials.Zr));
-        }
+    [Fact]
+    public void GetWeldingResult_NotData()
+    {
+        string result = WeldabilityCheck.WeldingResult.NotData.GetDisplayName();
+        Assert.Equal(result, MaterialCombinationDW.GetWeldingResult((int)Materials.Mo, (int)Materials.Fe));
+    }
 
-        [Fact]
-        public void GetWeldingResult_NotData()
-        {
-            string result = WeldabilityCheck.WeldingResult.NotData.GetDisplayName();
-            Assert.Equal(result, MaterialCombinationDW.GetWeldingResult((int)Materials.Mo, (int)Materials.Fe));
-        }
+    [Fact]
+    public void GetWeldingResult_MaterialNotFound()
+    {
+        Assert.Throws<CustomApplicationException>(
+            () => MaterialCombinationDW.GetWeldingResult((int)Materials.Al, (int)Materials.ValveMaterials)
+        );
 
-        [Fact]
-        public void GetWeldingResult_MaterialNotFound()
-        {
-            Assert.Throws<CustomApplicationException>(
-                () => MaterialCombinationDW.GetWeldingResult((int)Materials.Al, (int)Materials.ValveMaterials)
-            );
-
-            _output.WriteLine($"Material not found: {Materials.ValveMaterials.ToString()}");
-        }
+        _output.WriteLine($"Material not found: {Materials.ValveMaterials.ToString()}");
     }
 }

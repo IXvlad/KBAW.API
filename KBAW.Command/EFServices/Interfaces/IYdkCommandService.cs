@@ -1,10 +1,9 @@
 ﻿using KBAW.Container.Dependencies;
 using KBAW.DataAccess.DomainModels;
 
-namespace KBAW.Command.EFServices.Interfaces
+namespace KBAW.Command.EFServices.Interfaces;
+
+public interface IYdkCommandService : IEntityCommandService<Ydk>, IScoped
 {
-    public interface IYdkCommandService: IEntityCommandService<Ydk>, IScoped
-    {
-        //
-    }
+    //
 }

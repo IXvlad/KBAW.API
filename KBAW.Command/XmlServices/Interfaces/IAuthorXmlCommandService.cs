@@ -1,10 +1,9 @@
 ﻿using KBAW.Container.Dependencies;
 using KBAW.DataAccess.DomainModels;
 
-namespace KBAW.Command.XmlServices
+namespace KBAW.Command.XmlServices.Interfaces;
+
+public interface IAuthorXmlCommandService : IEntityXmlCommandService<Author>, IScoped
 {
-    public interface IAuthorXmlCommandService : IEntityXmlCommandService<Author>, IScoped
-    {
-        //
-    }
+    //
 }

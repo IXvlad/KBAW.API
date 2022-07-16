@@ -1,7 +1,6 @@
-﻿namespace KBAW.DataAccess.DomainModels
+﻿namespace KBAW.DataAccess.DomainModels;
+
+public interface IEntity
 {
-    public interface IEntity
-    {
-        long Id { get; set; }
-    }
+    long Id { get; set; }
 }

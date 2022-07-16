@@ -1,16 +1,13 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using KBAW.DataAccess.DomainModels;
+﻿using KBAW.DataAccess.DomainModels;
 
-namespace KBAW.Query.EFServices.Interfaces
+namespace KBAW.Query.EFServices.Interfaces;
+
+public interface IEntityQueryService<TEntity>
+    where TEntity : IEntity
 {
-    public interface IEntityQueryService<TEntity>
-        where TEntity : IEntity
-    {
-        IQueryable<TEntity> GetAll();
+    IQueryable<TEntity> GetAll();
 
-        TEntity GetById(long id);
+    TEntity GetById(long id);
 
-        Task<TEntity> GetByIdAsync(long id);
-    }
+    Task<TEntity> GetByIdAsync(long id);
 }

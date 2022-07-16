@@ -2,14 +2,13 @@
 using KBAW.DataAccess.Repositories;
 using KBAW.Query.EFServices.Interfaces;
 
-namespace KBAW.Query.EFServices
+namespace KBAW.Query.EFServices;
+
+public class PatentQueryService : EntityQueryService<Patent>, IPatentQueryService
 {
-    public class PatentQueryService : EntityQueryService<Patent>, IPatentQueryService
+    public PatentQueryService(IQueryRepository<Patent> queryRepository)
+        : base(queryRepository)
     {
-        public PatentQueryService(IQueryRepository<Patent> queryRepository)
-            : base(queryRepository)
-        {
-            //
-        }
+        //
     }
 }

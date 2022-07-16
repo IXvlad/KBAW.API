@@ -1,10 +1,9 @@
 ﻿using KBAW.Container.Dependencies;
 using KBAW.DataAccess.DomainModels;
 
-namespace KBAW.Query.XmlServices.Interfaces
+namespace KBAW.Query.XmlServices.Interfaces;
+
+public interface IBookXmlQueryService : IEntityXmlQueryService<Book>, IScoped
 {
-    public interface IBookXmlQueryService : IEntityXmlQueryService<Book>, IScoped
-    {
-        //
-    }
+    //
 }

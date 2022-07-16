@@ -2,14 +2,13 @@
 using KBAW.DataAccess.DomainModels;
 using KBAW.DataAccess.Repositories;
 
-namespace KBAW.Command.EFServices
+namespace KBAW.Command.EFServices;
+
+public class PatentCommandService : EntityCommandService<Patent>, IPatentCommandService
 {
-    public class PatentCommandService : EntityCommandService<Patent>, IPatentCommandService
+    public PatentCommandService(ICommandRepository<Patent> commandRepository)
+        : base(commandRepository)
     {
-        public PatentCommandService(ICommandRepository<Patent> commandRepository)
-            : base(commandRepository)
-        {
-            //
-        }
+        //
     }
 }

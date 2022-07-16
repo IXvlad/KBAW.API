@@ -4,16 +4,15 @@ using KBAW.DataAccess.Materials;
 using KBAW.Utils;
 using Microsoft.AspNetCore.Mvc;
 
-namespace KBAW.API.Controlles
+namespace KBAW.API.Controlles;
+
+[ApiController]
+[Route("[controller]")]
+public class MaterialsController : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class MaterialsController : ControllerBase
+    [HttpGet("GetMaterials")]
+    public IEnumerable<PropEnum> GetMaterials()
     {
-        [HttpGet("GetMaterials")]
-        public IEnumerable<PropEnum> GetMaterials()
-        {
-            return EnumHelper.GetListItems<Materials>().ToList();
-        }
+        return EnumHelper.GetListItems<Materials>().ToList();
     }
 }

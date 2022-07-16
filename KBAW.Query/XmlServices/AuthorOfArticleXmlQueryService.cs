@@ -2,15 +2,14 @@
 using KBAW.DataAccess.XmlRepository;
 using KBAW.Query.XmlServices.Interfaces;
 
-namespace KBAW.Query.XmlServices
+namespace KBAW.Query.XmlServices;
+
+public class AuthorOfArticleXmlQueryService : EntityXmlQueryService<AuthorOfArticle>,
+    IAuthorOfArticleXmlQueryService
 {
-    public class AuthorOfArticleXmlQueryService : EntityXmlQueryService<AuthorOfArticle>,
-        IAuthorOfArticleXmlQueryService
+    public AuthorOfArticleXmlQueryService(IXmlQueryRepository<AuthorOfArticle> xmlQueryRepository)
+        : base(xmlQueryRepository)
     {
-        public AuthorOfArticleXmlQueryService(IXmlQueryRepository<AuthorOfArticle> xmlQueryRepository) 
-            : base(xmlQueryRepository)
-        {
-            //
-        }
+        //
     }
 }

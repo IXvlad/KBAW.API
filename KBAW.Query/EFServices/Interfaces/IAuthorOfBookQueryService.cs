@@ -1,10 +1,9 @@
 ﻿using KBAW.Container.Dependencies;
 using KBAW.DataAccess.DomainModels;
 
-namespace KBAW.Query.EFServices.Interfaces
+namespace KBAW.Query.EFServices.Interfaces;
+
+public interface IAuthorOfBookQueryService : IEntityQueryService<AuthorOfBook>, IScoped
 {
-    public interface IAuthorOfBookQueryService : IEntityQueryService<AuthorOfBook>, IScoped
-    {
-        //
-    }
+    //
 }

@@ -1,7 +1,6 @@
-﻿namespace KBAW.Container.Dependencies
+﻿namespace KBAW.Container.Dependencies;
+
+public interface ISingleton
 {
-    public interface ISingleton
-    {
-        //
-    }
+    //
 }
