@@ -1,14 +1,15 @@
-﻿using KBAW.DataAccess.DomainModels;
+﻿using KBAW.Command.XmlServices.Interfaces;
+using KBAW.DataAccess.DomainModels;
 using KBAW.DataAccess.XmlRepository;
 
-namespace KBAW.Command.XmlServices
+namespace KBAW.Command.XmlServices;
+
+public class AuthorOfArticleXmlCommandService : EntityXmlCommandService<AuthorOfArticle>,
+    IAuthorOfArticleXmlCommandService
 {
-    public class AuthorOfArticleXmlCommandService : EntityXmlCommandService<AuthorOfArticle>, IAuthorOfArticleXmlCommandService
+    public AuthorOfArticleXmlCommandService(IXmlCommandRepository<AuthorOfArticle> xmlCommandRepository)
+        : base(xmlCommandRepository)
     {
-        public AuthorOfArticleXmlCommandService(IXmlCommandRepository<AuthorOfArticle> xmlCommandRepository)
-            : base(xmlCommandRepository)
-        {
-            //
-        }
+        //
     }
 }

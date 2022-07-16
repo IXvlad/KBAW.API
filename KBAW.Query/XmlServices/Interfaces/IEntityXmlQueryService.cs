@@ -1,13 +1,11 @@
-﻿using System.Linq;
-using KBAW.DataAccess.DomainModels;
+﻿using KBAW.DataAccess.DomainModels;
 
-namespace KBAW.Query.XmlServices.Interfaces
+namespace KBAW.Query.XmlServices.Interfaces;
+
+public interface IEntityXmlQueryService<TEntity>
+    where TEntity : IEntity
 {
-    public interface IEntityXmlQueryService<TEntity>
-        where TEntity : IEntity
-    {
-        IQueryable<TEntity> GetAll();
+    IQueryable<TEntity> GetAll();
 
-        TEntity GetById(long id);
-    }
+    TEntity GetById(long id);
 }

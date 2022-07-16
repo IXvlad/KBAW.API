@@ -4,24 +4,23 @@ using KBAW.Query.EFServices.Interfaces;
 using KBAW.Query.EFServices.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace KBAW.API.Controlles
+namespace KBAW.API.Controlles;
+
+[ApiController]
+[Route("[controller]")]
+public class RecordsController : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class RecordsController : ControllerBase
+    private readonly Lazy<IGetAllRecordsCommand> _getAllRecordsCommand;
+
+    public RecordsController(
+        Lazy<IGetAllRecordsCommand> getAllRecordsCommand)
     {
-        private readonly Lazy<IGetAllRecordsCommand> _getAllRecordsCommand;
+        _getAllRecordsCommand = getAllRecordsCommand;
+    }
 
-        public RecordsController(
-            Lazy<IGetAllRecordsCommand> getAllRecordsCommand)
-        {
-            _getAllRecordsCommand = getAllRecordsCommand;
-        }
-
-        [HttpGet("GetAllRecords")]
-        public IEnumerable<Record> GetAllRecords()
-        {
-            return _getAllRecordsCommand.Value.Get();
-        }
+    [HttpGet("GetAllRecords")]
+    public IEnumerable<Record> GetAllRecords()
+    {
+        return _getAllRecordsCommand.Value.Get();
     }
 }

@@ -1,9 +1,8 @@
-﻿namespace KBAW.DataAccess.XmlRepository
-{
-    public interface IXml
-    {
-        void Save();
+﻿namespace KBAW.DataAccess.XmlRepository;
 
-        void Load();
-    }
+public interface IXml
+{
+    void Save();
+
+    void Load();
 }

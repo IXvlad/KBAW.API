@@ -1,64 +1,66 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using KBAW.DataAccess.ApplicationDb;
 using KBAW.DataAccess.DomainModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace KBAW.DataAccess.Repositories
+namespace KBAW.DataAccess.Repositories;
+
+public class QueryRepository<TEntity> : IQueryRepository<TEntity>
+    where TEntity : class, IEntity
 {
-    public class QueryRepository<TEntity> : IQueryRepository<TEntity>
-        where TEntity : class, IEntity
+    private readonly string _entityName;
+    private readonly ApplicationDbContext _dbContext;
+    private readonly DbSet<TEntity> _dbSet;
+    private readonly ILogger _logger;
+
+    public QueryRepository(
+        ApplicationDbContext dbContext,
+        ILoggerFactory factory)
     {
-        private readonly string _entityName;
-        private readonly ApplicationDbContext _dbContext;
-        private readonly DbSet<TEntity> _dbSet;
-        private readonly ILogger _logger;
+        _entityName = typeof(TEntity).Name;
+        _logger = factory.CreateLogger("QueryRepository");
+        _dbContext = dbContext;
+        _dbSet = dbContext.Set<TEntity>();
+    }
 
-        public QueryRepository(
-            ApplicationDbContext dbContext,
-            ILoggerFactory factory)
+    public IQueryable<TEntity> GetAll()
+    {
+        _logger.LogInformation("Get all {Entity}.", _entityName);
+        return _dbContext.Set<TEntity>();
+    }
+
+    public TEntity GetById(long id)
+    {
+        try
         {
-            _entityName = typeof(TEntity).Name;
-            _logger = factory.CreateLogger("QueryRepository");
-            _dbContext = dbContext;
-            _dbSet = dbContext.Set<TEntity>();
+            _logger.LogInformation("Get {Entity} by id: {Id}.", _entityName, id);
+            return _dbSet.Find(id);
         }
-
-        public IQueryable<TEntity> GetAll()
+        catch (Exception exception)
         {
-            _logger.LogInformation("Get all {Entity}.", _entityName);
-            return _dbContext.Set<TEntity>();
+            _logger.LogWarning("Get {Entity} by id: {Id} is failed: {ExceptionMessage}.", _entityName, id,
+                exception.Message);
+
+            return null;
         }
+    }
 
-        public TEntity GetById(long id)
+    public async Task<TEntity> GetByIdAsync(long id)
+    {
+        try
         {
-            try
-            {
-                _logger.LogInformation("Get {Entity} by id: {Id}.", _entityName, id);
-                return _dbSet.Find(id);
-            }
-            catch (Exception exception)
-            {
-                _logger.LogWarning("Get {Entity} by id: {Id} is failed: {ExceptionMessage}.", _entityName, id, exception.Message);
-
-                return null;
-            }
+            _logger.LogInformation("Get {Entity} by id: {Id}.", _entityName, id);
+            return await _dbSet.FindAsync(id);
         }
-
-        public async Task<TEntity> GetByIdAsync(long id)
+        catch (Exception exception)
         {
-            try
-            {
-                _logger.LogInformation("Get {Entity} by id: {Id}.", _entityName, id);
-                return await _dbSet.FindAsync(id);
-            }
-            catch (Exception exception)
-            {
-                _logger.LogWarning("Get {Entity} by id: {Id} is failed: {ExceptionMessage}.", _entityName, id, exception.Message);
+            _logger.LogWarning("Get {Entity} by id: {Id} is failed: {ExceptionMessage}.", _entityName, id,
+                exception.Message);
 
-                return null;
-            }
+            return null;
         }
     }
 }

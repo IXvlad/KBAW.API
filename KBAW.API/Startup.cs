@@ -1,7 +1,7 @@
 using Autofac;
 using KBAW.API.Infrastructure;
 using KBAW.Container;
-using KBAW.DataAccess.Repositories;
+using KBAW.DataAccess.ApplicationDb;
 using KBAW.ErrorHandler;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,53 +12,52 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Serilog;
 
-namespace KBAW.API
+namespace KBAW.API;
+
+public class Startup
 {
-    public class Startup
+    private readonly IConfiguration _configuration;
+
+    public Startup(IConfiguration configuration)
     {
-        private readonly IConfiguration _configuration;
+        _configuration = configuration;
+    }
 
-        public Startup(IConfiguration configuration)
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddControllers();
+        services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = nameof(API), Version = "v1" }); });
+        services.AddDbContext<ApplicationDbContext>(
+            options =>
+                options.UseSqlServer(
+                    _configuration.GetConnectionString("DefaultConnection"),
+                    ssdcob => ssdcob.MigrationsAssembly("KBAW.Migrations")));
+
+        services.AddAutoMapper(typeof(Startup), typeof(AutoMapperProfile));
+    }
+
+    public void ConfigureContainer(ContainerBuilder containerBuilder)
+    {
+        containerBuilder.RegisterModule(new RegistrationModule());
+    }
+
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
         {
-            _configuration = configuration;
+            app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", nameof(API) + "v1"));
         }
 
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddControllers();
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = nameof(API), Version = "v1"}); });
-            services.AddDbContext<ApplicationDbContext>(
-                options =>
-                    options.UseSqlServer(
-                        _configuration.GetConnectionString("DefaultConnection"),
-                        ssdcob => ssdcob.MigrationsAssembly("KBAW.Migrations")));
-            
-            services.AddAutoMapper(typeof(Startup), typeof(AutoMapperProfile));
-        }
+        app.UseSerilogRequestLogging();
 
-        public void ConfigureContainer(ContainerBuilder containerBuilder)
-        {
-            containerBuilder.RegisterModule(new RegistrationModule());
-        }
+        app.UseHttpsRedirection();
+        app.UseRouting();
+        app.UseAuthorization();
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", nameof(API) + "v1"));
-            }
+        app.UseMiddleware<ErrorMiddleware>();
 
-            app.UseSerilogRequestLogging();
-            
-            app.UseHttpsRedirection();
-            app.UseRouting();
-            app.UseAuthorization();
-
-            app.UseMiddleware<ErrorMiddleware>();
-            
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-        }
+        app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
     }
 }

@@ -2,14 +2,13 @@
 using KBAW.DataAccess.Repositories;
 using KBAW.Query.EFServices.Interfaces;
 
-namespace KBAW.Query.EFServices
+namespace KBAW.Query.EFServices;
+
+public class RecommendedBookQueryService : EntityQueryService<RecommendedBook>, IRecommendedBookQueryService
 {
-    public class RecommendedBookQueryService : EntityQueryService<RecommendedBook>, IRecommendedBookQueryService
+    public RecommendedBookQueryService(IQueryRepository<RecommendedBook> queryRepository)
+        : base(queryRepository)
     {
-        public RecommendedBookQueryService(IQueryRepository<RecommendedBook> queryRepository)
-            : base(queryRepository)
-        {
-            //
-        }
+        //
     }
 }

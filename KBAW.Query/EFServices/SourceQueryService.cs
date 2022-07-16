@@ -2,14 +2,13 @@
 using KBAW.DataAccess.Repositories;
 using KBAW.Query.EFServices.Interfaces;
 
-namespace KBAW.Query.EFServices
+namespace KBAW.Query.EFServices;
+
+public class SourceQueryService : EntityQueryService<Source>, ISourceQueryService
 {
-    public class SourceQueryService : EntityQueryService<Source>, ISourceQueryService
+    public SourceQueryService(IQueryRepository<Source> queryRepository)
+        : base(queryRepository)
     {
-        public SourceQueryService(IQueryRepository<Source> queryRepository)
-            : base(queryRepository)
-        {
-            //
-        }
+        //
     }
 }

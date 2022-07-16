@@ -2,13 +2,13 @@
 
 public class Record
 {
-    public string Country { get; set; }
+    public string? Country { get; set; }
         
-    public string Description { get; set; }
+    public string? Description { get; set; }
         
-    public string Title { get; set; }
+    public string? Title { get; set; }
         
-    public string Ydk { get; set; }
+    public string? Ydk { get; set; }
         
     public string? Classification { get; set; }
         
@@ -18,5 +18,5 @@ public class Record
         
     public string? СertificateAuthorship { get; set; }
         
-    public string[] Authors { get; set; }
+    public string[]? Authors { get; set; }
 }

@@ -2,14 +2,13 @@
 using KBAW.DataAccess.XmlRepository;
 using KBAW.Query.XmlServices.Interfaces;
 
-namespace KBAW.Query.XmlServices
+namespace KBAW.Query.XmlServices;
+
+public class YdkXmlQueryService : EntityXmlQueryService<Ydk>, IYdkXmlQueryService
 {
-    public class YdkXmlQueryService : EntityXmlQueryService<Ydk>, IYdkXmlQueryService
+    public YdkXmlQueryService(IXmlQueryRepository<Ydk> xmlQueryRepository)
+        : base(xmlQueryRepository)
     {
-        public YdkXmlQueryService(IXmlQueryRepository<Ydk> xmlQueryRepository)
-            : base(xmlQueryRepository)
-        {
-            //
-        }
+        //
     }
 }

@@ -1,67 +1,63 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
+﻿using System.Net;
 using System.Text.Json;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace KBAW.ErrorHandler
+namespace KBAW.ErrorHandler;
+
+public class ErrorMiddleware
 {
-    public class ErrorMiddleware
+    private readonly RequestDelegate _nextMiddleware;
+
+    public ErrorMiddleware(RequestDelegate nextMiddleware)
     {
-        private readonly RequestDelegate _nextMiddleware;
+        _nextMiddleware = nextMiddleware;
+    }
 
-        public ErrorMiddleware(RequestDelegate nextMiddleware)
+    public async Task InvokeAsync(HttpContext context)
+    {
+        try
         {
-            _nextMiddleware = nextMiddleware;
+            await _nextMiddleware(context);
         }
-
-        public async Task InvokeAsync(HttpContext context)
+        catch (Exception error)
         {
-            try
+            HttpResponse response = context.Response;
+            response.ContentType = "application/json";
+
+            response.StatusCode = error switch
             {
-                await _nextMiddleware(context);
-            }
-            catch (Exception error)
+                CustomApplicationException => (int)HttpStatusCode.BadRequest,
+                KeyNotFoundException => (int)HttpStatusCode.NotFound,
+                _ => (int)HttpStatusCode.InternalServerError
+            };
+
+            string result;
+
+            if (error is CustomApplicationException applicationException)
             {
-                HttpResponse response = context.Response;
-                response.ContentType = "application/json";
+                CustomApplicationException exception = applicationException ?? throw new InvalidOperationException();
 
-                response.StatusCode = error switch
+                result = JsonSerializer.Serialize(new
                 {
-                    CustomApplicationException => (int)HttpStatusCode.BadRequest,
-                    KeyNotFoundException => (int)HttpStatusCode.NotFound,
-                    _ => (int)HttpStatusCode.InternalServerError
-                };
-
-                string result;
-                
-                if (error is CustomApplicationException applicationException)
-                {
-                    CustomApplicationException exception = applicationException ?? throw new InvalidOperationException();
-
-                    result = JsonSerializer.Serialize(new
-                    {
-                        exception.Message,
-                        exception.InnerException,
-                        exception.Data,
-                        exception.Detail,
-                        response.StatusCode
-                    });
-                }
-                else
-                {
-                    result = JsonSerializer.Serialize(new
-                    {
-                        error.Message,
-                        error.InnerException,
-                        error.Data,
-                        response.StatusCode
-                    });
-                }
-                
-                await response.WriteAsync(result);
+                    exception.Message,
+                    exception.InnerException,
+                    exception.Data,
+                    exception.Detail,
+                    response.StatusCode
+                });
             }
+            else
+            {
+                result = JsonSerializer.Serialize(new
+                {
+                    error.Message,
+                    error.InnerException,
+                    error.Data,
+                    response.StatusCode
+                });
+            }
+
+            await response.WriteAsync(result);
         }
     }
 }
