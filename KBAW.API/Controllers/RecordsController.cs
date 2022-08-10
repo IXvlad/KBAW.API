@@ -4,7 +4,7 @@ using KBAW.Query.EFServices.Interfaces;
 using KBAW.Query.EFServices.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace KBAW.API.Controlles;
+namespace KBAW.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]

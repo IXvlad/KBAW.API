@@ -4,7 +4,7 @@ using KBAW.DataAccess.Materials;
 using KBAW.Utils;
 using Microsoft.AspNetCore.Mvc;
 
-namespace KBAW.API.Controlles;
+namespace KBAW.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
