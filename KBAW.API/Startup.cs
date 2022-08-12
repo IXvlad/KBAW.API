@@ -33,6 +33,16 @@ public class Startup
                     _configuration.GetSection("Database").GetConnectionString("Default")));
 
         services.AddAutoMapper(typeof(Startup), typeof(AutoMapperProfile));
+
+        services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(builder =>
+            {
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            });
+        });
     }
 
     public void ConfigureContainer(ContainerBuilder containerBuilder)
@@ -55,6 +65,8 @@ public class Startup
         app.UseRouting();
         app.UseAuthorization();
 
+        app.UseCors();
+        
         app.UseMiddleware<ErrorMiddleware>();
 
         app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
